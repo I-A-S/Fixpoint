@@ -20,14 +20,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: sudo apt update && sudo apt install -y llvm-18-dev libclang-18-dev clang-18
+      - name: Install LLVM/Clang
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 21 all
+          sudo apt install -y llvm-21-dev libclang-21-dev
 
       - name: Update Submodules
         run: git submodule update --init
 
       - name: Configure
-        run: cmake --preset ${{ matrix.target }} -DLLVM_DIR=/usr/lib/llvm-18/lib/cmake/llvm -DClang_DIR=/usr/lib/llvm-18/lib/cmake/clang
+        run: cmake --preset ${{ matrix.target }} -DLLVM_DIR=/usr/lib/llvm-21/lib/cmake/llvm -DClang_DIR=/usr/lib/llvm-21/lib/cmake/clang
 
       - name: Build
         run: cmake --build --preset ${{ matrix.target }} --config Release
