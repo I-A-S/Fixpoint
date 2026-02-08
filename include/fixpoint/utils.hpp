@@ -19,5 +19,26 @@
 
 namespace ia::fixpoint
 {
+  namespace utils
+  {
+    [[nodiscard]] auto get_loc_str_path_and_line(Ref<FullSourceLoc> loc) -> String;
+    [[nodiscard]] auto get_decl_str_start_and_end_cols(const VarDecl *decl) -> String;
+    [[nodiscard]] auto get_decl_str_start_and_end_cols(const FunctionDecl *decl) -> String;
+    [[nodiscard]] auto get_decl_str_start_and_end_cols(const CXXRecordDecl *decl) -> String;
 
-}
+    [[nodiscard]] auto fits_in_register(const VarDecl *decl) -> bool;
+    [[nodiscard]] auto is_cheap_to_copy(const VarDecl *decl) -> bool;
+    [[nodiscard]] auto is_std_class(QualType type, const char *class_name) -> bool;
+    [[nodiscard]] auto is_std_call(const CallExpr *call, const char *function_name) -> bool;
+
+    [[nodiscard]] inline auto is_string_view(QualType type) -> bool
+    {
+      return is_std_class(type, "basic_string_view");
+    }
+
+    [[nodiscard]] inline auto is_memory_span(QualType type) -> bool
+    {
+      return is_std_class(type, "span");
+    }
+  } // namespace utils
+} // namespace ia::fixpoint

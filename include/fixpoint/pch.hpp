@@ -40,8 +40,11 @@ namespace ia::fixpoint
   using Expr = clang::Expr;
   using Decl = clang::Decl;
   using VarDecl = clang::VarDecl;
-  using FuncDecl = clang::FunctionDecl;
+  using CallExpr = clang::CallExpr;
+  using QualType = clang::QualType;
   using DeclRefExpr = clang::DeclRefExpr;
+  using FunctionDecl = clang::FunctionDecl;
+  using FullSourceLoc = clang::FullSourceLoc;
   using CXXRecordDecl = clang::CXXRecordDecl;
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
