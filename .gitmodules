@@ -1,3 +1,4 @@
 [submodule "IACrux"]
 	path = IACrux
 	url = https://github.com/I-A-S/IACrux
+	branch = main
