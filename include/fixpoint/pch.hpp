@@ -42,23 +42,33 @@ namespace ia::fixpoint
   using VarDecl = clang::VarDecl;
   using CallExpr = clang::CallExpr;
   using QualType = clang::QualType;
+  using CFGBlock = clang::CFGBlock;
+  using SwitchStmt = clang::SwitchStmt;
   using DeclRefExpr = clang::DeclRefExpr;
   using FunctionDecl = clang::FunctionDecl;
   using FullSourceLoc = clang::FullSourceLoc;
   using CXXRecordDecl = clang::CXXRecordDecl;
+  using CFGInitializer = clang::CFGInitializer;
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
   using CompileCommand = clang::tooling::CompileCommand;
 
   using LLVM_StringRef = llvm::StringRef;
 
-  template<typename FromT, typename ToT> ToT *llvm_cast(FromT &v)
+  template<typename ToT, typename FromT> ToT *llvm_cast(FromT &v)
   {
-    return llvm::dyn_cast_or_null(v);
+    return llvm::dyn_cast_or_null<ToT>(v);
   }
 
-  template<typename FromT, typename ToT> const ToT *llvm_cast(const FromT &v)
+  template<typename ToT, typename FromT> const ToT *llvm_cast(const FromT &v)
   {
-    return llvm::dyn_cast_or_null(v);
+    return llvm::dyn_cast_or_null<ToT>(v);
   }
+
+  class IWorkloadTask : public MatchCallback
+  {
+public:
+    virtual ~IWorkloadTask() = default;
+    [[nodiscard]] virtual auto get_matcher() const -> DeclarationMatcher = 0;
+  };
 } // namespace ia::fixpoint

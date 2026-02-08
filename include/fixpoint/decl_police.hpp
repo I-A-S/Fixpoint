@@ -19,5 +19,26 @@
 
 namespace ia::fixpoint
 {
+  class DeclPolice : public IWorkloadTask
+  {
+public:
+    virtual auto police(Ref<MatchResult> match_result, const Decl *decl, Ref<SourceLocation> loc) -> void = 0;
 
-}
+public:
+    inline auto run(Ref<MatchResult> result) -> void override;
+  };
+
+  auto DeclPolice::run(Ref<MatchFinder::MatchResult> result) -> void
+  {
+    const auto *decl = result.Nodes.getNodeAs<Decl>("decl");
+    if (!decl)
+      return;
+
+    SourceLocation loc = decl->getLocation();
+
+    if (result.SourceManager->isInSystemHeader(loc) || !result.SourceManager->isInMainFile(loc) || !loc.isValid())
+      return;
+
+    police(result, decl, loc);
+  }
+} // namespace ia::fixpoint

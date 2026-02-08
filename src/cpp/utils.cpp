@@ -114,7 +114,7 @@ namespace ia::fixpoint::utils
       {
         if (const auto *const tmpl_decl = tpl->getTemplateName().getAsTemplateDecl())
         {
-          decl = dyn_cast_or_null<CXXRecordDecl>(tmpl_decl->getTemplatedDecl());
+          decl = llvm_cast<CXXRecordDecl>(tmpl_decl->getTemplatedDecl());
         }
       }
     }

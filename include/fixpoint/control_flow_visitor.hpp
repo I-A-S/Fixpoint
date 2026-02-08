@@ -19,5 +19,39 @@
 
 namespace ia::fixpoint
 {
+  class ControlFlowVisitor : public IWorkloadTask
+  {
+public:
+    virtual auto on_enter_block(const CFGBlock *block) -> void = 0;
+    virtual auto on_exit_block(const CFGBlock *block) -> void = 0;
 
-}
+    virtual auto on_conditional_branch(const Stmt *terminator, const CFGBlock *true_path, const CFGBlock *false_path)
+        -> void = 0;
+
+    virtual auto on_loop_decision(const Stmt *terminator, const CFGBlock *loop_body, const CFGBlock *loop_exit)
+        -> void = 0;
+
+    virtual auto on_switch_branch(const SwitchStmt *terminator, const CFGBlock::succ_const_range &successors)
+        -> void = 0;
+
+    virtual auto on_simple_jump(const Stmt *terminator, const CFGBlock *target) -> void = 0;
+
+    virtual auto on_initializer(const CXXCtorInitializer *init) -> void
+    {
+      AU_UNUSED(init);
+    }
+
+    virtual auto on_implicit_dtor(const CFGImplicitDtor *dtor) -> void
+    {
+      AU_UNUSED(dtor);
+    }
+
+    virtual auto on_statement(const Stmt *stmt) -> void
+    {
+      AU_UNUSED(stmt);
+    }
+
+public:
+    auto run(Ref<MatchResult> result) -> void override;
+  };
+} // namespace ia::fixpoint
