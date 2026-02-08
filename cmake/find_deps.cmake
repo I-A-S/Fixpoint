@@ -1,6 +1,6 @@
 include(FetchContent)
 
-if(MSVC)
+if(IA_IS_CROSS_BUILD AND MSVC)
     set(Clang_DIR "$ENV{WIN_LLVM_DIR}/lib/cmake/clang")
     set(LLVM_DIR "$ENV{WIN_LLVM_DIR}/lib/cmake/llvm")
 endif()
@@ -16,7 +16,7 @@ if(${LLVM_VERSION} VERSION_LESS 21)
     message(FATAL_ERROR "Found LLVM ${LLVM_VERSION}, but version 21 or higher is required.")
 endif()
 
-if(MSVC)
+if(IA_IS_CROSS_BUILD AND MSVC)
     set(LLVM_TARGETS_TO_SCRUB ${LLVM_AVAILABLE_LIBS} LLVMDebugInfoCodeView LLVMDebugInfoPDB LLVMDebugInfoMSF)
 
     foreach(TGT ${LLVM_TARGETS_TO_SCRUB})

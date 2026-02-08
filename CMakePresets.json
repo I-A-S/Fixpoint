@@ -47,6 +47,7 @@
       "inherits": "x64-windows-cross",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "cacheVariables": {
+        "IA_IS_CROSS_BUILD": "TRUE",
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/x64-windows-cross-clang.cmake"
       }
     }

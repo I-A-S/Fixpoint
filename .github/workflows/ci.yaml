@@ -38,3 +38,53 @@ jobs:
 
       - name: Test
         run: ctest --preset ${{ matrix.target }} --output-on-failure
+
+  build-windows:
+      runs-on: windows-latest
+      permissions:
+        contents: read
+      strategy:
+        fail-fast: false
+        matrix:
+          target: [fixpoint-x64-windows]
+
+      env:
+        LLVM_VERSION: 21.1.8 
+
+      steps:
+        - uses: actions/checkout@v4
+
+        - uses: ilammy/msvc-dev-cmd@v1
+
+        - name: Install LLVM/Clang ${{ env.LLVM_VERSION }}
+          shell: pwsh
+          run: |
+            $Version = $env:LLVM_VERSION
+            $Filename = "clang+llvm-$Version-x86_64-pc-windows-msvc.tar.xz"
+            $Url = "https://github.com/llvm/llvm-project/releases/download/llvmorg-$Version/$Filename"
+            $DestDir = "C:\llvm"
+
+            echo "Downloading LLVM $Version from $Url..."
+            curl -L -o $Filename $Url
+
+            echo "Extracting..."
+            7z x $Filename -so | 7z x -si -ttar -o"$DestDir"
+
+            $ExtractedRoot = Get-ChildItem -Path "$DestDir" -Directory | Select-Object -First 1
+            $FinalPath = "$DestDir\final"
+            Move-Item -Path "$ExtractedRoot\*" -Destination "$DestDir"
+
+            echo "LLVM_ROOT=$DestDir" >> $env:GITHUB_ENV
+            echo "LLVM_DIR=$DestDir\lib\cmake\llvm" >> $env:GITHUB_ENV
+            echo "Clang_DIR=$DestDir\lib\cmake\clang" >> $env:GITHUB_ENV
+
+            echo "$DestDir\bin" >> $env:GITHUB_PATH
+
+        - name: Configure
+          run: cmake --preset ${{ matrix.target }}
+
+        - name: Build
+          run: cmake --build --preset ${{ matrix.target }} --config Release
+
+        - name: Test
+          run: ctest --preset ${{ matrix.target }} --output-on-failure
