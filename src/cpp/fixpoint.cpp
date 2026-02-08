@@ -15,6 +15,10 @@
 
 #include <fixpoint/fixpoint.hpp>
 
+#include <fixpoint/utils.hpp>
+#include <fixpoint/decl_police.hpp>
+#include <fixpoint/data_flow_solver.hpp>
+
 namespace ia::fixpoint
 {
 
