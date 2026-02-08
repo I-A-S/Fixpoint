@@ -45,6 +45,7 @@ namespace ia::fixpoint
   using CXXRecordDecl = clang::CXXRecordDecl;
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
+  using CompileCommand = clang::tooling::CompileCommand;
 
   using LLVM_StringRef = llvm::StringRef;
 

@@ -15,9 +15,41 @@
 
 #pragma once
 
-#include <fixpoint/pch.hpp>
+#include <fixpoint/options.hpp>
 
 namespace ia::fixpoint
 {
+  class CompileDB : public clang::tooling::CompilationDatabase
+  {
+public:
+    static auto create(MutRef<Options> options) -> Result<CompileDB>;
 
-}
+    ~CompileDB() = default;
+
+public:
+    [[nodiscard]] auto getCompileCommands(Mut<LLVM_StringRef> file_path) const -> Vec<CompileCommand> override
+    {
+      auto cmds = mut(m_base.getCompileCommands(file_path));
+
+      if (cmds.size() > 1)
+        cmds.resize(1);
+
+      return cmds;
+    }
+
+    [[nodiscard]] auto getAllFiles() const -> Vec<String> override
+    {
+      return m_base.getAllFiles();
+    }
+
+    [[nodiscard]] auto getAllCompileCommands() const -> Vec<CompileCommand> override
+    {
+      return m_base.getAllCompileCommands();
+    }
+
+private:
+    const clang::tooling::CompilationDatabase &m_base;
+
+    CompileDB(Ref<clang::tooling::CompilationDatabase> db);
+  };
+} // namespace ia::fixpoint

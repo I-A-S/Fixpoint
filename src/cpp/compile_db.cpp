@@ -17,5 +17,12 @@
 
 namespace ia::fixpoint
 {
+  auto CompileDB::create(MutRef<Options> options) -> Result<CompileDB>
+  {
+    return CompileDB(options.get_cop().getCompilations());
+  }
 
-}
+  CompileDB::CompileDB(Ref<clang::tooling::CompilationDatabase> db) : m_base(db)
+  {
+  }
+} // namespace ia::fixpoint
