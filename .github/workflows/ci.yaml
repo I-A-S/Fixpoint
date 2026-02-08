@@ -80,6 +80,9 @@ jobs:
 
             echo "$DestDir\bin" >> $env:GITHUB_PATH
 
+        - name: Update Submodules
+          run: git submodule update --init
+
         - name: Configure
           run: cmake --preset ${{ matrix.target }}
 
