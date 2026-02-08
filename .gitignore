@@ -1,0 +1,9 @@
+.clangd/
+.cache/
+
+build/
+out/
+
+sandbox/
+
+compile_commands.json

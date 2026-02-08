@@ -1,0 +1,74 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28
+  },
+  "configurePresets": [
+    {
+      "name": "fixpoint-x64-linux",
+      "displayName": "Fixpoint Linux x64 (Clang)",
+      "inherits": "x64-linux",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/x64-linux-clang.cmake"
+      }
+    },
+    {
+      "name": "fixpoint-arm64-linux",
+      "displayName": "Fixpoint Linux ARM64 (Clang Cross)",
+      "inherits": "arm64-linux",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/arm64-linux-clang.cmake"
+      }
+    },
+    {
+      "name": "fixpoint-x64-windows",
+      "displayName": "Fixpoint Windows x64 (Clang)",
+      "inherits": "x64-windows",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/x64-windows-clang.cmake"
+      }
+    },
+    {
+      "name": "fixpoint-arm64-windows",
+      "displayName": "Fixpoint Windows ARM64 (Clang Cross)",
+      "inherits": "arm64-windows",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/arm64-windows-clang.cmake"
+      }
+    },
+    {
+      "name": "fixpoint-x64-windows-cross",
+      "displayName": "Fixpoint Windows x64 (Clang Cross Linux Host)",
+      "inherits": "x64-windows-cross",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/IACrux/cmake/toolchains/x64-windows-cross-clang.cmake"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "fixpoint-x64-linux-debug",
+      "configurePreset": "fixpoint-x64-linux",
+      "configuration": "Debug"
+    },
+    {
+      "name": "fixpoint-x64-linux-release",
+      "configurePreset": "fixpoint-x64-linux",
+      "configuration": "Release"
+    },
+    {
+      "name": "fixpoint-x64-windows-release",
+      "configurePreset": "fixpoint-x64-windows",
+      "configuration": "Release"
+    }
+  ],
+  "include": [
+    "IACrux/CMakePresets.json"
+  ]
+}
