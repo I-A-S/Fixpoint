@@ -46,14 +46,14 @@ namespace ia::fixpoint
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
 
-  template<typename FromT, typename  ToT>
-  ToT* llvm_cast(FromT& v)
+  using LLVM_StringRef = llvm::StringRef;
+
+  template<typename FromT, typename ToT> ToT *llvm_cast(FromT &v)
   {
     return llvm::dyn_cast_or_null(v);
   }
 
-  template<typename FromT, typename  ToT>
-  const ToT* llvm_cast(const FromT& v)
+  template<typename FromT, typename ToT> const ToT *llvm_cast(const FromT &v)
   {
     return llvm::dyn_cast_or_null(v);
   }
