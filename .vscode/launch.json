@@ -10,7 +10,7 @@
                 "dummy"
             ],
             "cwd": "${workspaceFolder}/",
-            "preLaunchTask": "CMake Build"
+            "preLaunchTask": "CMake: build"
         }
     ]
 }

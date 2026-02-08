@@ -53,19 +53,30 @@
   ],
   "buildPresets": [
     {
-      "name": "fixpoint-x64-linux-debug",
-      "configurePreset": "fixpoint-x64-linux",
-      "configuration": "Debug"
+      "name": "fixpoint-x64-linux",
+      "configurePreset": "fixpoint-x64-linux"
     },
     {
-      "name": "fixpoint-x64-linux-release",
+      "name": "fixpoint-x64-windows",
+      "configurePreset": "fixpoint-x64-windows"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "fixpoint-x64-linux",
       "configurePreset": "fixpoint-x64-linux",
-      "configuration": "Release"
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
     },
     {
-      "name": "fixpoint-x64-windows-release",
+      "name": "fixpoint-x64-windows",
       "configurePreset": "fixpoint-x64-windows",
-      "configuration": "Release"
+      "configuration": "Release",
+      "output": {
+        "outputOnFailure": true
+      }
     }
   ],
   "include": [

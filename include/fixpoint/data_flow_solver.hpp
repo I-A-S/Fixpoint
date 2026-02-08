@@ -58,23 +58,19 @@ private:
 
     auto *ctx = result.Context;
 
-    if (const auto *func = llvm_cast<FunctionDecl>(decl))
+    if (const auto func = llvm_cast<const FunctionDecl>(decl))
       analyze_function(func, ctx);
-    else if (const auto *record = llvm_cast<CXXRecordDecl>(decl))
+    else if (const auto record = llvm_cast<const CXXRecordDecl>(decl))
     {
-      for (const auto *method : record->methods())
-      {
+      for (const auto method : record->methods())
         analyze_function(method, ctx);
-      }
     }
-    else if (const auto *tu = llvm_cast<clang::TranslationUnitDecl>(decl))
+    else if (const auto tu = llvm_cast<const clang::TranslationUnitDecl>(decl))
     {
       for (const auto *sub_decl : tu->decls())
       {
-        if (const auto *f = llvm_cast<FunctionDecl>(sub_decl))
-        {
+        if (const auto f = llvm_cast<const FunctionDecl>(sub_decl))
           analyze_function(f, ctx);
-        }
       }
     }
   }

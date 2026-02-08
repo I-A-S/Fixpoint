@@ -30,11 +30,13 @@
 
 namespace ia::fixpoint
 {
+  namespace ast = clang::ast_matchers;
+
   using SourceLocation = clang::SourceLocation;
-  using MatchFinder = clang::ast_matchers::MatchFinder;
-  using MatchResult = clang::ast_matchers::MatchFinder::MatchResult;
-  using DeclarationMatcher = clang::ast_matchers::DeclarationMatcher;
-  using MatchCallback = clang::ast_matchers::MatchFinder::MatchCallback;
+  using MatchFinder = ast::MatchFinder;
+  using MatchResult = ast::MatchFinder::MatchResult;
+  using DeclarationMatcher = ast::DeclarationMatcher;
+  using MatchCallback = ast::MatchFinder::MatchCallback;
 
   using Stmt = clang::Stmt;
   using Expr = clang::Expr;
