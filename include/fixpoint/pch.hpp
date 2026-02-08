@@ -43,6 +43,7 @@ namespace ia::fixpoint
   using CallExpr = clang::CallExpr;
   using QualType = clang::QualType;
   using CFGBlock = clang::CFGBlock;
+  using Diagnostic = clang::Diagnostic;
   using SwitchStmt = clang::SwitchStmt;
   using DeclRefExpr = clang::DeclRefExpr;
   using FunctionDecl = clang::FunctionDecl;
@@ -52,6 +53,7 @@ namespace ia::fixpoint
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
   using CompileCommand = clang::tooling::CompileCommand;
+  using DiagnosticPrinter = clang::TextDiagnosticPrinter;
 
   using LLVM_StringRef = llvm::StringRef;
 

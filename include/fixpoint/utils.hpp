@@ -40,5 +40,10 @@ namespace ia::fixpoint
     {
       return is_std_class(type, "span");
     }
+
+    [[nodiscard]] inline auto is_std_function(QualType type) -> bool
+    {
+      return is_std_class(type, "function");
+    }
   } // namespace utils
 } // namespace ia::fixpoint

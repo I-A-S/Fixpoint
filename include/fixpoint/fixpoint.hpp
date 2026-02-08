@@ -15,9 +15,68 @@
 
 #pragma once
 
-#include <fixpoint/pch.hpp>
+#include <fixpoint/utils.hpp>
+#include <fixpoint/compile_db.hpp>
+
+#include <fixpoint/decl_police.hpp>
+#include <fixpoint/data_flow_solver.hpp>
+#include <fixpoint/control_flow_visitor.hpp>
 
 namespace ia::fixpoint
 {
+  class Workload
+  {
+public:
+    template<typename Task> auto add_task() -> void;
 
-}
+public:
+    auto add_task(ForwardRef<Box<IWorkloadTask>> task) -> void
+    {
+      m_tasks.emplace_back(std::move(task));
+    }
+
+    [[nodiscard]] auto get_tasks() const -> Ref<Vec<Box<IWorkloadTask>>>
+    {
+      return m_tasks;
+    }
+
+private:
+    Vec<Box<IWorkloadTask>> m_tasks;
+  };
+
+  class Tool
+  {
+public:
+    using SyntaxErrorHandlerT = std::function<i32(Ref<Diagnostic> diagnostics, DiagnosticPrinter *printer)>;
+
+public:
+    static auto create(MutRef<Options> options, Ref<CompileDB> compile_db) -> Result<Box<Tool>>;
+
+    ~Tool() = default;
+
+public:
+    auto run(Ref<Workload> workload) -> Result<void>;
+
+    static auto set_syntax_error_handler(SyntaxErrorHandlerT handler) -> void
+    {
+      s_syntax_error_handler = handler;
+    }
+
+    static auto get_syntax_error_handler() -> SyntaxErrorHandlerT
+    {
+      return s_syntax_error_handler;
+    }
+
+private:
+    clang::tooling::ClangTool m_clang_tool;
+    static SyntaxErrorHandlerT s_syntax_error_handler;
+
+protected:
+    Tool(ForwardRef<clang::tooling::ClangTool> ct);
+  };
+
+  template<typename Task> auto Workload::add_task() -> void
+  {
+    add_task(make_box<Task>());
+  }
+} // namespace ia::fixpoint

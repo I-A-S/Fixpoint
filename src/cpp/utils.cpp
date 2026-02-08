@@ -89,7 +89,7 @@ namespace ia::fixpoint::utils
     if (fits_in_register(decl))
       return true;
 
-    if (is_string_view(t) || is_memory_span(t))
+    if (is_string_view(t) || is_memory_span(t) || is_std_function(t))
       return true;
 
     clang::ASTContext &ctx = decl->getASTContext();
