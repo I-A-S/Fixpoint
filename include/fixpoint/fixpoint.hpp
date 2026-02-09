@@ -18,6 +18,7 @@
 #include <fixpoint/utils.hpp>
 #include <fixpoint/compile_db.hpp>
 
+#include <fixpoint/ast_visitor.hpp>
 #include <fixpoint/decl_police.hpp>
 #include <fixpoint/data_flow_solver.hpp>
 #include <fixpoint/control_flow_visitor.hpp>
