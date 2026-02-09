@@ -31,6 +31,8 @@ namespace ia::fixpoint
     if (!func || !ctx || !func->hasBody())
       return;
 
+    m_last_match_result = &result;
+
     Mut<clang::CFG::BuildOptions> cfg_opts;
     cfg_opts.PruneTriviallyFalseEdges = true;
     cfg_opts.AddImplicitDtors = true;

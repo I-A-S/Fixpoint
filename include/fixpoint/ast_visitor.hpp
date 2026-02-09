@@ -33,6 +33,8 @@ public:
       if (!node)
         return;
 
+      m_last_match_result = &result;
+
       static_cast<Derived *>(this)->TraverseDecl(const_cast<Decl *>(node));
     }
 
@@ -40,5 +42,14 @@ public:
     {
       return false;
     }
+
+protected:
+    auto get_match_result() -> const MatchResult *
+    {
+      return m_last_match_result;
+    }
+
+private:
+    const MatchResult *m_last_match_result{};
   };
 } // namespace ia::fixpoint

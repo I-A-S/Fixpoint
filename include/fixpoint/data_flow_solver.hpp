@@ -46,8 +46,16 @@ public:
 public:
     auto run(Ref<MatchResult> result) -> void override;
 
+protected:
+    auto get_match_result() -> const MatchResult *
+    {
+      return m_last_match_result;
+    }
+
 private:
     auto analyze_function(const FunctionDecl *func, clang::ASTContext *ctx) -> void;
+
+    const MatchResult *m_last_match_result{};
   };
 
   template<DataFlowState StateT> auto DataFlowSolver<StateT>::run(Ref<MatchResult> result) -> void
@@ -55,6 +63,8 @@ private:
     const auto *decl = result.Nodes.getNodeAs<Decl>("decl");
     if (!decl)
       return;
+
+    m_last_match_result = &result;
 
     auto *ctx = result.Context;
 

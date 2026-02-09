@@ -53,5 +53,14 @@ public:
 
 public:
     auto run(Ref<MatchResult> result) -> void override;
+
+protected:
+    auto get_match_result() -> const MatchResult *
+    {
+      return m_last_match_result;
+    }
+
+private:
+    const MatchResult *m_last_match_result{};
   };
 } // namespace ia::fixpoint

@@ -29,10 +29,8 @@ public:
       return fixpoint::ast::varDecl(fixpoint::ast::unless(fixpoint::ast::isImplicit())).bind("var");
     }
 
-    auto police(Ref<fixpoint::MatchFinder::MatchResult> result, const fixpoint::Decl *decl,
-                Ref<fixpoint::SourceLocation> loc) -> void override
+    auto police(const fixpoint::Decl *decl, Ref<fixpoint::SourceLocation> loc) -> void override
     {
-      AU_UNUSED(result);
       AU_UNUSED(loc);
 
       if (const auto var = fixpoint::llvm_cast<const fixpoint::VarDecl>(decl))
@@ -81,8 +79,7 @@ public:
       return fixpoint::ast::varDecl(fixpoint::ast::unless(fixpoint::ast::isImplicit()));
     }
 
-    auto police(Ref<fixpoint::MatchFinder::MatchResult>, const fixpoint::Decl *d, Ref<fixpoint::SourceLocation>)
-        -> void override
+    auto police(const fixpoint::Decl *d, Ref<fixpoint::SourceLocation>) -> void override
     {
       if (const auto v = fixpoint::llvm_cast<const fixpoint::VarDecl>(d))
       {

@@ -22,10 +22,19 @@ namespace ia::fixpoint
   class DeclPolice : public IWorkloadTask
   {
 public:
-    virtual auto police(Ref<MatchResult> match_result, const Decl *decl, Ref<SourceLocation> loc) -> void = 0;
+    virtual auto police(const Decl *decl, Ref<SourceLocation> loc) -> void = 0;
 
 public:
     inline auto run(Ref<MatchResult> result) -> void override;
+
+protected:
+    auto get_match_result() -> const MatchResult *
+    {
+      return m_last_match_result;
+    }
+
+private:
+    const MatchResult *m_last_match_result{};
   };
 
   auto DeclPolice::run(Ref<MatchFinder::MatchResult> result) -> void
@@ -39,6 +48,8 @@ public:
     if (result.SourceManager->isInSystemHeader(loc) || !result.SourceManager->isInMainFile(loc) || !loc.isValid())
       return;
 
-    police(result, decl, loc);
+    m_last_match_result = &result;
+
+    police(decl, loc);
   }
 } // namespace ia::fixpoint
