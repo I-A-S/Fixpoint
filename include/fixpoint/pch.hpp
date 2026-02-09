@@ -38,20 +38,36 @@ namespace ia::fixpoint
   using DeclarationMatcher = ast::DeclarationMatcher;
   using MatchCallback = ast::MatchFinder::MatchCallback;
 
+  using Lexer = clang::Lexer;
+  using TypeLoc = clang::TypeLoc;
+  using SourceRange = clang::SourceRange;
+  using ArrayTypeLoc = clang::ArrayTypeLoc;
+  using TypeSourceInfo = clang::TypeSourceInfo;
+  using CharSourceRange = clang::CharSourceRange;
+
   using Stmt = clang::Stmt;
   using Expr = clang::Expr;
   using Decl = clang::Decl;
   using VarDecl = clang::VarDecl;
   using CallExpr = clang::CallExpr;
+
+  using ReturnStmt = clang::ReturnStmt;
+  using MemberExpr = clang::MemberExpr;
+  using ArraySubscriptExpr = clang::ArraySubscriptExpr;
+
   using QualType = clang::QualType;
   using CFGBlock = clang::CFGBlock;
   using Diagnostic = clang::Diagnostic;
   using SwitchStmt = clang::SwitchStmt;
+  using ParmVarDecl = clang::ParmVarDecl;
   using DeclRefExpr = clang::DeclRefExpr;
   using FunctionDecl = clang::FunctionDecl;
+  using UnaryOperator = clang::UnaryOperator;
   using FullSourceLoc = clang::FullSourceLoc;
   using CXXRecordDecl = clang::CXXRecordDecl;
+  using CXXDeleteExpr = clang::CXXDeleteExpr;
   using CFGInitializer = clang::CFGInitializer;
+  using BinaryOperator = clang::BinaryOperator;
   using CFGImplicitDtor = clang::CFGImplicitDtor;
   using CXXCtorInitializer = clang::CXXCtorInitializer;
   using CompileCommand = clang::tooling::CompileCommand;
