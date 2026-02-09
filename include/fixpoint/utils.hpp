@@ -25,6 +25,7 @@ namespace ia::fixpoint
     [[nodiscard]] auto get_decl_str_start_and_end_cols(const VarDecl *decl) -> String;
     [[nodiscard]] auto get_decl_str_start_and_end_cols(const FunctionDecl *decl) -> String;
     [[nodiscard]] auto get_decl_str_start_and_end_cols(const CXXRecordDecl *decl) -> String;
+    [[nodiscard]] auto get_ref_str_start_and_end_cols(const fixpoint::DeclRefExpr *ref) -> String;
 
     [[nodiscard]] auto fits_in_register(const VarDecl *decl) -> bool;
     [[nodiscard]] auto is_cheap_to_copy(const VarDecl *decl) -> bool;

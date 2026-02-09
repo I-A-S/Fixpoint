@@ -50,6 +50,18 @@ namespace ia::fixpoint::utils
     return std::format("{}:{}", start_col, end_col);
   }
 
+  [[nodiscard]] auto get_ref_str_start_and_end_cols(const fixpoint::DeclRefExpr *ref) -> String
+  {
+    Mut<u32> start_col{0}, end_col{0};
+
+    if (const auto decl = ref->getDecl())
+    {
+      start_col = decl->getASTContext().getSourceManager().getSpellingColumnNumber(ref->getBeginLoc());
+      end_col = decl->getASTContext().getSourceManager().getSpellingColumnNumber(ref->getEndLoc());
+    }
+    return std::format("{}:{}", start_col, end_col);
+  }
+
   [[nodiscard]] auto get_decl_str_start_and_end_cols(const FunctionDecl *decl) -> String
   {
     AU_UNUSED(decl);
